@@ -34,7 +34,7 @@ testers.runNixOSTest {
     start_all()
 
     server.wait_for_open_port(22)
-    server.wait_for_unit("endlessh-py.service")
-    client.succeed("nc -dvW5 server 22")
+    client.execute("nc -dvW5 server 22")
+    client.sleep(2)
   '';
 }

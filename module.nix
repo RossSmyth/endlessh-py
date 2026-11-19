@@ -78,6 +78,7 @@ in
         RemoveIPC = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
+        ReadWritePaths=[];
       };
     };
   };
