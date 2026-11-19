@@ -60,8 +60,11 @@ in
         ProtectHostname = true;
         RestrictNamespaces = true;
         PrivateUsers = true;
+        PrivateNetwork = true;
 
         # Depth
+        IPAddressDeny = "any";
+        RestrictAddressFamilies = [ "AF_UNIX" ];
         SocketBindDeny = "any";
         LockPersonality = true;
         PrivateDevices = true;
