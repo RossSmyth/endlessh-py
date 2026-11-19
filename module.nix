@@ -54,6 +54,7 @@ in
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
         PrivateIPC = true;
+        PrivateNetwork = true;
         PrivatePIDs = true;
         ProtectHostname = true;
         RestrictNamespaces = true;
