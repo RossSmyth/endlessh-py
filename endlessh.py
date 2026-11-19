@@ -1,8 +1,8 @@
 import asyncio
 import random
-import socket
 
-from systemd.daemon import listen_fds_with_names
+from systemd.daemon import listen_fds_with_names, is_socket_inet
+
 
 # TODO: Close on zero connections
 async def handler(_reader, writer):
@@ -24,16 +24,17 @@ async def handler(_reader, writer):
         await asyncio.wait_for(writer.wait_closed(), timeout=1.0)
 
 
-async def main(fd):
-    sock = socket.fromfd(fd, socket.AF_INET, socket.SOCK_STREAM)
-    sock.setblocking(False)
-
-    server = await asyncio.start_server(handler, sock=sock)
+async def main(fd: int):
+    server = await asyncio.start_server(handler, sock=fd)
     async with server:
         await server.serve_forever()
 
 if __name__ == "__main__":
     fds = listen_fds_with_names()
     print(fds)
+
+    socket = fds["endlessh-py.socket"]
+    if not is_socket_inet(socket):
+        raise TypeError("Socket is not an inet socket.")
 
     asyncio.run(main(fds["endlessh-py.socket"]))
