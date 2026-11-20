@@ -1,14 +1,12 @@
 let
-  pkgs = import <nixpkgs> {
-    overlays = [
-      (import ./.)
-    ];
-  };
+  inputs = import ./npins;
+  pkgs = import inputs.nixpkgs { };
 
   inherit (pkgs) testers;
 in
 testers.runNixOSTest {
   name = "endlessh-py-tests";
+  node.pkgsReadOnly = false;
 
   nodes = {
     server = {
