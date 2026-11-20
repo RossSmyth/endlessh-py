@@ -33,6 +33,8 @@ async def main(fd: int):
     async with server:
         await server.serve_forever()
 
+NAME = "endlessh-py.socket"
+
 if __name__ == "__main__":
     print("PID:", os.getpid())
     print("LISTEN_PID:", os.environ.get("LISTEN_PID"))
@@ -42,11 +44,12 @@ if __name__ == "__main__":
 
     fds = listen_fds_with_names(unset_environment=False)
 
-    if "endlessh-py.socket" in fds:
-        fd = fds["endlessh-py.socket"]
+    if NAME in fds.values():
+        for input_fd, name in dict.iteritems():
+            if name == NAME:
+                fd = input_fd
     else:
-        print("This is wrong!")
-        fd = 3
+        raise IOError("FD not passed")
 
     if not is_socket_inet(fd):
         raise TypeError("Socket is not an inet socket.")
