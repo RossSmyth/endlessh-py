@@ -1,8 +1,9 @@
 import asyncio
 import random
 import os
+import socket
 
-from systemd.daemon import listen_fds_with_names, listen_fds, is_socket_inet
+from systemd.daemon import listen_fds_with_names, listen_fds, is_socket_inet, notify
 
 
 # TODO: Close on zero connections
@@ -22,7 +23,6 @@ async def handler(_reader, writer):
     finally:
         # Close stuff
         writer.close()
-        await asyncio.wait_for(writer.wait_closed(), timeout=1.0)
 
 
 async def main(fd: int):
@@ -39,8 +39,15 @@ if __name__ == "__main__":
 
     fds = listen_fds_with_names(unset_environment=False)
 
-    socket = fds["endlessh-py.socket"]
-    if not is_socket_inet(socket):
+    if "endlessh-py.socket" in fds:
+        fd = fds["endlessh-py.socket"]
+    else:
+        print("This is wrong!")
+        fd = 3
+
+    if not is_socket_inet(fd):
         raise TypeError("Socket is not an inet socket.")
 
-    asyncio.run(main(fds["endlessh-py.socket"]))
+    sock = socket.fromfd(fd, socket.AF_INET, socket.SOCK_STREAM)
+    sock.setblocking(False)
+    asyncio.run(main(sock))
