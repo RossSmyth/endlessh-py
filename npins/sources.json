@@ -1,11 +1,17 @@
 {
   "pins": {
     "nixpkgs": {
-      "type": "Channel",
-      "name": "nixpkgs-unstable",
-      "artifact": "nixexprs.tar.xz",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-26.11pre1122334.e21fec321d73/nixexprs.tar.xz",
-      "hash": "sha256-i4bQ1+DYOg+08KQNJDtmhTlFnn1DYUMKGzVOfBt23mQ="
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Skyb0rg007",
+        "repo": "nixpkgs"
+      },
+      "branch": "systemd-263",
+      "submodules": false,
+      "revision": "6ea922036eeed97a4fba607c34d8272a1e32965e",
+      "url": "https://github.com/Skyb0rg007/nixpkgs/archive/6ea922036eeed97a4fba607c34d8272a1e32965e.tar.gz",
+      "hash": "sha256-9ZbjOPjlP/n2Pn1m6OAUJmNy99a7mRFzP0XJhj+B9Is="
     }
   },
   "version": 8
