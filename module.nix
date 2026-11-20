@@ -15,7 +15,7 @@ in
 
     port = lib.mkOption {
       type = lib.types.int;
-      default = 22;
+      default = 2047;
       description = "Port to bind socket to";
     };
 
@@ -38,7 +38,7 @@ in
       description = "endlessh-py SSH tarpit";
       requires = [ "endlessh-py.socket" ];
       after = [ "endlessh-py.socket" ];
-      
+
       serviceConfig = {
         ExecStart = lib.getExe cfg.package;
         Restart = "on-failure";
@@ -78,7 +78,7 @@ in
         RemoveIPC = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
-        ReadWritePaths=[];
+        ReadWritePaths = [ ];
       };
     };
   };

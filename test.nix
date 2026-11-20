@@ -33,8 +33,8 @@ testers.runNixOSTest {
   testScript = ''
     start_all()
 
-    server.wait_for_open_port(22)
-    client.execute("nc -dvW5 server 22")
+    server.wait_for_open_port(2047)
+    client.execute("nc -dvW5 server 2047")
     client.sleep(2)
   '';
 }
