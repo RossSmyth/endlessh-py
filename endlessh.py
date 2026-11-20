@@ -46,7 +46,7 @@ if __name__ == "__main__":
     fds = listen_fds_with_names(unset_environment=False)
 
     if NAME in fds.values():
-        for input_fd, name in dict.iteritems():
+        for input_fd, name in fds.items():
             if name == NAME:
                 fd = input_fd
     else:
