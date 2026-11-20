@@ -3,10 +3,12 @@ import random
 import os
 import socket
 
-from systemd.daemon import listen_fds_with_names, listen_fds, is_socket_inet, notify
+from systemd.daemon import listen_fds_with_names, listen_fds, is_socket_inet
+from systemd.daemon import notify
 
 
 # TODO: Close on zero connections
+# TODO: Watchdog
 async def handler(_reader, writer):
     writer.write(b'HTTP/1.1 200 OK\r\n')
     try:
@@ -27,6 +29,7 @@ async def handler(_reader, writer):
 
 async def main(fd: int):
     server = await asyncio.start_server(handler, sock=fd)
+    notify("READY=1")
     async with server:
         await server.serve_forever()
 

@@ -44,6 +44,7 @@ in
       after = [ "endlessh-py.socket" ];
 
       serviceConfig = {
+        Type = "notify";
         ExecStart = lib.getExe cfg.package;
         Restart = "on-failure";
         RestartSec = 5;
