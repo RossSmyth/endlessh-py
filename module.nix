@@ -56,7 +56,7 @@ in
 
         # Important bits
         DynamicUser = true;
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [ ];
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
         PrivateIPC = true;
@@ -68,7 +68,7 @@ in
 
         # Depth
         IPAddressDeny = "any";
-        RestrictAddressFamilies = [ "AF_UNIX" ];
+        RestrictAddressFamilies = [ ];
         SocketBindDeny = "any";
         LockPersonality = true;
         PrivateDevices = true;

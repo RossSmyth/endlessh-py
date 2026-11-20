@@ -38,7 +38,6 @@ if __name__ == "__main__":
     print("listen_fds():", listen_fds(unset_environment=False))
 
     fds = listen_fds_with_names(unset_environment=False)
-    print(fds)
 
     socket = fds["endlessh-py.socket"]
     if not is_socket_inet(socket):
