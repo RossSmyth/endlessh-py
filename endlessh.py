@@ -37,6 +37,7 @@ NAME = "endlessh-py.socket"
 
 if __name__ == "__main__":
     print("PID:", os.getpid())
+    print("PIDFD:", os.pidfd_open(os.getpid()))
     print("LISTEN_PID:", os.environ.get("LISTEN_PID"))
     print("LISTEN_PIDFD:", os.environ.get("LISTEN_PIDFDID"))
     print("LISTEN_FDS:", os.environ.get("LISTEN_FDS"))
