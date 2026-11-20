@@ -1,7 +1,8 @@
 import asyncio
 import random
+import os
 
-from systemd.daemon import listen_fds_with_names, is_socket_inet
+from systemd.daemon import listen_fds_with_names, listen_fds, is_socket_inet
 
 
 # TODO: Close on zero connections
@@ -30,7 +31,13 @@ async def main(fd: int):
         await server.serve_forever()
 
 if __name__ == "__main__":
-    fds = listen_fds_with_names()
+    print("PID:", os.getpid())
+    print("LISTEN_PID:", os.environ.get("LISTEN_PID"))
+    print("LISTEN_PIDFD:", os.environ.get("LISTEN_PIDFDID"))
+    print("LISTEN_FDS:", os.environ.get("LISTEN_FDS"))
+    print("listen_fds():", listen_fds(unset_environment=False))
+
+    fds = listen_fds_with_names(unset_environment=False)
     print(fds)
 
     socket = fds["endlessh-py.socket"]
